@@ -19,6 +19,9 @@ func main() {
 	r.HandleFunc("/books", h.AddBook).Methods(http.MethodPost)
 	r.HandleFunc("/books/{id}", h.UpdateBook).Methods(http.MethodPut)
 	r.HandleFunc("/books/{id}", h.DeleteBook).Methods(http.MethodDelete)
+	r.HandleFunc("/names", h.Byname).Methods(http.MethodGet)
+	r.HandleFunc("/names", h.AddUser).Methods(http.MethodPost)
+	r.HandleFunc("/names/{id}", h.Getuser).Methods(http.MethodGet)
 
 	http.ListenAndServe(":8000", r)
 
