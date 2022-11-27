@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println("hello baby")
+	fmt.Println("helloooowowoowo")
 	DB := db.Init()
 	h := handlers.New(DB)
 	r := mux.NewRouter()

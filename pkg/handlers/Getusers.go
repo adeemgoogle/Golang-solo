@@ -14,14 +14,18 @@ func (h handler) Getuser(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, _ := strconv.Atoi(vars["id"])
 	var user models.User
-	var name *models.User = cache.PostCache.Get()
-	if name == nil:
+	redis := cache.RedisCache{}
+	name := redis.Get("id")
+	if name == nil {
 
-	if result := h.DB.Find(&user, id); result.Error != nil {
-		fmt.Println(result.Error)
+		if result := h.DB.Find(&user, id); result.Error != nil {
+			fmt.Println(result.Error)
+		}
+		redis.Set("id", "")
+		w.WriteHeader(http.StatusOK)
+		w.Header().Add("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(user)
 	}
 	w.WriteHeader(http.StatusOK)
-	w.Header().Add("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(user)
-
 }
